@@ -9,6 +9,7 @@ const verifyTalkIsEmpty = require('./Middlewares/verifyTalkIsEmpty');
 const verifyTalk = require('./Middlewares/verifyTalk');
 const validateDate = require('./Middlewares/validateDate');
 const changeTalker = require('./Middlewares/changeTalker');
+const deleteTalk = require('./Middlewares/deleteTalk');
 
 const app = express();
 app.use(bodyParser.json());
@@ -27,6 +28,8 @@ app.get('/talker', getTalker);
 app.get('/talker/:id', getTalkerById);
 
 app.use(authorizationMid);
+
+app.delete('/talker/:id', deleteTalk);
 
 app.use(verifyTalkIsEmpty, validateDate, verifyTalk);
 
