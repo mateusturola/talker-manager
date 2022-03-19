@@ -8,8 +8,7 @@ const verifyTalk = (req, res, next) => {
   if (!validateDateFormat(watchedAt)) {
     return res.status(400).json({ message: 'O campo "watchedAt" deve ter o formato "dd/mm/aaaa"' });
   } 
-  const validRate = rate >= 1 && rate <= 5;
-  if (!validRate) {
+  if (rate < 1 || rate > 5) {
     return res.status(400).json({ message: 'O campo "rate" deve ser um inteiro de 1 à 5' });
   }
   next();
