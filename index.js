@@ -8,6 +8,7 @@ const authorizationMid = require('./Middlewares/authorizationMid');
 const verifyTalkIsEmpty = require('./Middlewares/verifyTalkIsEmpty');
 const verifyTalk = require('./Middlewares/verifyTalk');
 const validateDate = require('./Middlewares/validateDate');
+const changeTalker = require('./Middlewares/changeTalker');
 
 const app = express();
 app.use(bodyParser.json());
@@ -30,6 +31,7 @@ app.use(authorizationMid);
 app.use(verifyTalkIsEmpty, validateDate, verifyTalk);
 
 app.post('/talker', addTalker);
+app.put('/talker/:id', changeTalker);
 
 app.listen(PORT, () => {
   console.log('Online');
