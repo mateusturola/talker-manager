@@ -10,6 +10,7 @@ const verifyTalk = require('./Middlewares/verifyTalk');
 const validateDate = require('./Middlewares/validateDate');
 const changeTalker = require('./Middlewares/changeTalker');
 const deleteTalk = require('./Middlewares/deleteTalk');
+const searchTalker = require('./Middlewares/searchTalker');
 
 const app = express();
 app.use(bodyParser.json());
@@ -23,6 +24,8 @@ app.get('/', (_request, response) => {
 });
 
 app.post('/login', validateInput, login);
+
+app.get('/talker/search', authorizationMid, searchTalker);
 
 app.get('/talker', getTalker);
 app.get('/talker/:id', getTalkerById);
