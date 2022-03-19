@@ -1,16 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const getTalker = require('./Middlewares/getTalker');
-const getTalkerById = require('./Middlewares/getTalkerById');
-const { login, validateInput } = require('./Middlewares/login');
-const addTalker = require('./Middlewares/addTalker');
-const authorizationMid = require('./Middlewares/authorizationMid');
-const verifyTalkIsEmpty = require('./Middlewares/verifyTalkIsEmpty');
-const verifyTalk = require('./Middlewares/verifyTalk');
-const validateDate = require('./Middlewares/validateDate');
-const changeTalker = require('./Middlewares/changeTalker');
-const deleteTalk = require('./Middlewares/deleteTalk');
-const searchTalker = require('./Middlewares/searchTalker');
+const routeTalker = require('./api/routes/talkers');
+const routeLogin = require('./api/routes/login');
 
 const app = express();
 app.use(bodyParser.json());
@@ -23,21 +14,9 @@ app.get('/', (_request, response) => {
   response.status(HTTP_OK_STATUS).send();
 });
 
-app.post('/login', validateInput, login);
+app.use('/login', routeLogin);
 
-app.get('/talker/search', authorizationMid, searchTalker);
-
-app.get('/talker', getTalker);
-app.get('/talker/:id', getTalkerById);
-
-app.use(authorizationMid);
-
-app.delete('/talker/:id', deleteTalk);
-
-app.use(verifyTalkIsEmpty, validateDate, verifyTalk);
-
-app.post('/talker', addTalker);
-app.put('/talker/:id', changeTalker);
+app.use('/talker', routeTalker);
 
 app.listen(PORT, () => {
   console.log('Online');
